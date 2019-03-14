@@ -12,82 +12,70 @@ stand_alone: yes
 pi: [toc, sortrefs, symrefs]
 
 author:
- -
-    ins: R. Robert
-    name: Raphael Robert
-    organization: Wire
-    email: raphael@wire.com
+  ins: R. Robert
+  name: Raphael Robert
+  organization: Wire
+  email: raphael@wire.com
 
 informative:
-
   MLSARCH:
-       title: "Messaging Layer Security Architecture"
-       date: 2018
-       author:
-         -  ins: E. Omara
-            name: Emad Omara
-            organization: Google
-            email: emadomara@google.com
-         -  
-            ins: R. Barnes
-            name: Richard Barnes
-            organization: Cisco
-            email: rlb@ipv.sx
-         -
-	    ins: E. Rescorla 
-            name: Eric Rescorla
-            organization: Mozilla 
-            email: ekr@rtfm.com
-         -
-            ins: S. Inguva 
-            name: Srinivas Inguva 
-            organization: Twitter 
-            email: singuva@twitter.com
-         -
-            ins: A. Kwon 
-            name: Albert Kwon
-            organization: MIT 
-            email: kwonal@mit.edu
-         -
-            ins: A. Duric 
-            name: Alan Duric
-            organization: Wire 
-            email: alan@wire.com 
-
+    title: "Messaging Layer Security Architecture"
+    date: 2018
+    author:
+      - ins: E. Omara
+        name: Emad Omara
+        organization: Google
+        email: emadomara@google.com
+      - ins: R. Barnes
+        name: Richard Barnes
+        organization: Cisco
+        email: rlb@ipv.sx
+      - ins: E. Rescorla
+        name: Eric Rescorla
+        organization: Mozilla
+        email: ekr@rtfm.com
+      - ins: S. Inguva
+        name: Srinivas Inguva
+        organization: Twitter
+        email: singuva@twitter.com
+      - ins: A. Kwon
+        name: Albert Kwon
+        organization: MIT
+        email: kwonal@mit.edu
+      - ins: A. Duric
+        name: Alan Duric
+        organization: Wire
+        email: alan@wire.com
 
   MLSPROTO:
-       title: "Messaging Layer Security Protocol"
-       date: 2018
-       author:
-         -  ins: R. Barnes
-            name: Richard Barnes
-            organization: Cisco
-            email: rlb@ipv.sx
-         -
-            ins: J. Millican
-            name: Jon Millican
-            organization: Facebook
-            email: jmillican@fb.com
-         -
-            ins: E. Omara
-            name: Emad Omara
-            organization: Google
-            email: emadomara@google.com
-         -
-            ins: K. Cohn-Gordon
-            name: Katriel Cohn-Gordon
-            organization: University of Oxford
-            email: me@katriel.co.uk
-         -
-            ins: R. Robert
-            name: Raphael Robert
-            organization: Wire
-            email: raphael@wire.com
+    title: "Messaging Layer Security Protocol"
+    date: 2018
+    author:
+      - ins: R. Barnes
+        name: Richard Barnes
+        organization: Cisco
+        email: rlb@ipv.sx
+      - ins: J. Millican
+        name: Jon Millican
+        organization: Facebook
+        email: jmillican@fb.com
+      - ins: E. Omara
+        name: Emad Omara
+        organization: Google
+        email: emadomara@google.com
+      - ins: K. Cohn-Gordon
+        name: Katriel Cohn-Gordon
+        organization: University of Oxford
+        email: me@katriel.co.uk
+      - ins: R. Robert
+        name: Raphael Robert
+        organization: Wire
+        email: raphael@wire.com
+---
 
---- abstract
+abstract
 
 This document describes how Messaging Layer Security (MLS) groups can be used with more than one device per user.
-
 
 --- middle
 
@@ -97,27 +85,13 @@ Users can have more than one device on which they run an MLS client. Their clien
 
 # Terminology
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in
-BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all
-capitals, as shown here.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear in all capitals, as shown here.
 
-Client:
-: An agent that uses this protocol to establish shared cryptographic
-  state with other clients.  A client is defined by the
-  cryptographic keys it holds.  An application or user may use one client
-  per device (keeping keys local to each device) or sync keys among
-  a user's devices so that each user appears as a single client.
+Client: : An agent that uses this protocol to establish shared cryptographic state with other clients. A client is defined by the cryptographic keys it holds. An application or user may use one client per device (keeping keys local to each device) or sync keys among a user's devices so that each user appears as a single client.
 
-User Init Key:
-: A short-lived HPKE key pair used to introduce a new
-  client to a group.  Initialization keys are published for
-  each client (UserInitKey) as defined in {{MLSPROTO}}.
+User Init Key: : A short-lived HPKE key pair used to introduce a new client to a group. Initialization keys are published for each client (UserInitKey) as defined in {{MLSPROTO}}.
 
-Identity Key:
-: A long-lived signing key pair used to authenticate the sender of a
-  message as defined in {{MLSPROTO}}.
+Identity Key: : A long-lived signing key pair used to authenticate the sender of a message as defined in {{MLSPROTO}}.
 
 ## Multi-client mode
 
@@ -153,8 +127,7 @@ The root node of the per-user ratcheting tree changes its value whenever a devic
 
 ### UserInitKeys
 
-UserInitKeys are not specific to a certain device, they are rather valid for one single "virtual" client. The private part of a UserInitKey has to be known to all devices of a user.
-In order to simplify the sharing of the private keys, the UserInitKey could be derived from the per-user ratchet tree key schedule, eliminating the need to synchronize it among devices. For robustness, private values of older UserInitKeys could still be shared among devices of a user.
+UserInitKeys are not specific to a certain device, they are rather valid for one single "virtual" client. The private part of a UserInitKey has to be known to all devices of a user. In order to simplify the sharing of the private keys, the UserInitKey could be derived from the per-user ratchet tree key schedule, eliminating the need to synchronize it among devices. For robustness, private values of older UserInitKeys could still be shared among devices of a user.
 
 ### Authentication
 
@@ -173,7 +146,9 @@ Devices are added and removed with normal Add/Remove handshake messages inside t
 # Security Considerations
 
 ## Application layer
+
 Both modes require security checks to be implemented on the application layer
 
 # IANA Considerations
+
 This document makes no requests of IANA.
