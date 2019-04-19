@@ -130,6 +130,8 @@ In this mode, every client occupies a leaf node in the TreeKEM ratcheting tree. 
 
 The application is responsible for managing the user devices inside the ratcheting tree. It is also responsible for determining whether a user is a member of a group depending on whether their devices are part of the group.
 
+[TODO: add example diagram]
+
 ### UserInitKeys
 
 Every client has its own UserInitKeys. UserInitKeys are initially uploaded by the client to the Delivery Service.
@@ -162,6 +164,7 @@ DS will still fanout the group messages to all user devices behind the virtual c
 
 UserInitKeys are not specific to a certain device, they are rather valid for one single "virtual" client. The private part of a UserInitKey has to be known to all devices of a user.
 In order to simplify the sharing of the private keys, the UserInitKey could be derived from the per-user ratchet tree key schedule, eliminating the need to synchronize it among devices. For robustness, private values of older UserInitKeys could still be shared among devices of a user.
+[TODO: More details on how the init keys are derived, and how and when the public keys are uploaded to the server]
 
 ### Authentication
 
