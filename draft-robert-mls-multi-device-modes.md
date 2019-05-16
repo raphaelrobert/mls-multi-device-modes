@@ -17,6 +17,11 @@ author:
     name: Raphael Robert
     organization: Wire
     email: raphael@wire.com
+ -    
+    ins: E. Omara
+    name: Emad Omara
+    organization: Google
+    email: emadomara@google.com
 
 informative:
 
@@ -125,6 +130,8 @@ In this mode, every client occupies a leaf node in the TreeKEM ratcheting tree. 
 
 The application is responsible for managing the user devices inside the ratcheting tree. It is also responsible for determining whether a user is a member of a group depending on whether their devices are part of the group.
 
+[TODO: add example diagram]
+
 ### UserInitKeys
 
 Every client has its own UserInitKeys. UserInitKeys are initially uploaded by the client to the Delivery Service.
@@ -135,7 +142,7 @@ As per the MLS protocol draft, clients can have a joint identity key, but it is 
 
 ### Adding and removing of users
 
-When a new user is added to a group, all of their devices have to added as clients to the group. Currently there is no dedicated handshake message to bulk add members, but the DS can ensure that all of them are added atomically by not allowing any other handshake message to be inserted in the series of Add handshake messages.
+When a new user is added to a group, all of their devices have to be added as clients to the group. Currently there is no dedicated handshake message to bulk add members, but the DS can ensure that all of them are added atomically by not allowing any other handshake message to be inserted in the series of Add handshake messages.
 
 When a user is removed from a group, all of their devices have to be removed from the group. Bulk removals can be ensure in the same manner as with Add messages (see above).
 
@@ -151,14 +158,19 @@ The leaf node in the ratcheting tree is however the root node of a per-user ratc
 
 The root node of the per-user ratcheting tree changes its value whenever a device is added or removed from the user account. The changed root node value leads to a change of the leaf node in the group. This change is propagated to the group by issuing an Update handshake message in the group.
 
+DS will still fanout the group messages to all user devices behind the virtual client. [TODO: add example diagram]
+
 ### UserInitKeys
 
 UserInitKeys are not specific to a certain device, they are rather valid for one single "virtual" client. The private part of a UserInitKey has to be known to all devices of a user.
 In order to simplify the sharing of the private keys, the UserInitKey could be derived from the per-user ratchet tree key schedule, eliminating the need to synchronize it among devices. For robustness, private values of older UserInitKeys could still be shared among devices of a user.
+[TODO: More details on how the init keys are derived, and how and when the public keys are uploaded to the server]
 
 ### Authentication
 
 As per the MLS protocol draft, clients can have a joint identity key, but it is encouraged that every client has its own identity key. One of the identity keys is referenced in the UserInitKey.
+
+OPEN QUESTION: For the different identity keys case, which key will be exposed? and how the authentication model works when the exposed key changes (ie device removed) ?
 
 ### Adding and removing of users
 
